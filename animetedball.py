@@ -4,8 +4,10 @@ windowSize(800, 800)
 canvasSize(800, 800)
 ballr = 20
 ballcolor = "black"
-ballvelx = random.randint(0, 10)/10.0
+ballvelx = random.randint(0, 20)
 ballvely = 0
+
+
 
 hs = 5
 hr = 495
@@ -13,18 +15,30 @@ hr = 495
 ballx = random.randint(ballr + hs, hr - ballr)
 bally = random.randint(ballr + hs, hr - ballr)
 
+brushColor("white")
+penColor("black")
+penSize(5)
+bg = rectangle(hs - 5, hs - 5, hr + 5, hr + 5)
+penColor(ballcolor)
+brushColor(ballcolor)
+ball = circle(ballx, bally, ballr)
+
+
 def changecolor():
     global ballcolor
     ballcolor = randColor()
 
 def drawwall():
+    global bg
     brushColor("white")
     penColor("black")
     penSize(5)
-    rectangle(hs-5,hs-5,hr+5,hr+5)
+    deleteObject(bg);
+    bg = rectangle(hs - 5, hs - 5, hr + 5, hr + 5)
+
 
 def drawball():
-    global ballx, bally, ballcolor, ballvelx, ballvely, ballr, hs, hr
+    global ballx, bally, ballcolor, ballvelx, ballvely, ballr, hs, hr, ball
     if(ballx + ballvelx + ballr <= hr and ballx + ballvelx - ballr >= hs):
         ballx += ballvelx
     elif(ballx + ballvelx + ballr > hr):
@@ -46,15 +60,18 @@ def drawball():
         ballvely = - ballvely
         changecolor()
     if(bally < hr - ballr or ballvely != 0):
-        ballvely += 0.1
+        ballvely += 1
 
     penColor(ballcolor)
     brushColor(ballcolor)
-    circle(ballx, bally, ballr)
+    deleteObject(ball);
+    ball = circle(ballx, bally, ballr)
+
 
 def draw():
     drawwall()
     drawball()
 
-onTimer(draw, 10)
+
+onTimer(draw, 20)
 run()
