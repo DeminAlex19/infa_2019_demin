@@ -6,7 +6,7 @@ hr = 695
 windowSize(hr+10, hr+10)
 canvasSize(hr+10, hr+10)
 ballr = 20.0
-maxsvel = 5.0
+maxsvel = 20.0
 
 def rx():
     global hs, hr, ballr
@@ -14,7 +14,7 @@ def rx():
 
 def rvel():
     global maxsvel
-    return random.randint(0, maxsvel)
+    return random.randint(0, maxsvel) / 5.0
 
 brushColor("white")
 penColor("black")
@@ -100,5 +100,5 @@ def draw():
     drawwall()
     drawball()
 
-onTimer(draw, 10)
+onTimer(draw, 5)
 run()
