@@ -1,8 +1,8 @@
 from graph import*
 import random
-N = random.randint(5, 7)
+N = random.randint(10,40)
 hs = 5
-hr = 695
+hr = 785
 windowSize(hr+10, hr+10)
 canvasSize(hr+10, hr+10)
 ballr = 20.0
@@ -10,7 +10,7 @@ maxsvel = 20.0
 
 def rx():
     global hs, hr, ballr
-    return random.randint(2 * ballr + hs, hr - 2 * ballr) / 1.0
+    return random.randint(2 * ballr + hs + 1, hr - 2 * ballr - 1) / 1.0
 
 def rvel():
     global maxsvel
@@ -20,7 +20,9 @@ brushColor("white")
 penColor("black")
 penSize(5)
 bg = rectangle(hs - 5, hs - 5, hr + 5, hr + 5)
-balld = [circle(0,0,0), circle(0,0,0), circle(0,0,0), circle(0,0,0), circle(0,0,0), circle(0,0,0), circle(0,0,0)]
+balld = []
+for i in range(N):
+    balld.append(circle(0,0,0))
 
 ball = []
 for i in range(N):
@@ -100,5 +102,5 @@ def draw():
     drawwall()
     drawball()
 
-onTimer(draw, 5)
+onTimer(draw, 1)
 run()
