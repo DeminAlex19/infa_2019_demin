@@ -1,13 +1,14 @@
 from graph import*
 import random
-N = random.randint(5, 7)
+N = random.randint(10,40)
 hs = 5
-hr = 695
+hr = 785
 windowSize(hr+10, hr+10)
 canvasSize(hr+10, hr+10)
 ballr = 20.0
-maxsvel = 3.0
-axel = 0.05
+maxsvel = 10.0
+axel = 0.01
+
 
 def rx():
     global hs, hr, ballr
@@ -21,7 +22,10 @@ brushColor("white")
 penColor("black")
 penSize(5)
 bg = rectangle(hs - 5, hs - 5, hr + 5, hr + 5)
-balld = [circle(0,0,0), circle(0,0,0), circle(0,0,0), circle(0,0,0), circle(0,0,0), circle(0,0,0), circle(0,0,0)]
+balld = []
+
+for i in range(N):
+    balld.append(circle(0,0,0))
 
 ball = []
 for i in range(N):
@@ -102,5 +106,5 @@ def draw():
     drawwall()
     drawball()
 
-onTimer(draw, 10)
+onTimer(draw, 1)
 run()
