@@ -32,7 +32,7 @@ class ball():
                 self.y + self.r,
                 fill=self.color
         )
-        self.live = 50
+        self.live = 300
 
     def set_coords(self):
         canv.coords(
@@ -58,18 +58,18 @@ class ball():
             canv.move(self.id, 0, 600 - self.r - self.y)
             self.vy = -self.vy
             self.y = 600 - self.r
-        if (self.x + self.vx + self.r < 0):
+        if (self.x + self.vx - self.r < 0):
             canv.move(self.id, 0 + self.r - self.x, 0)
             self.vx = -self.vx
             self.x = 0 + self.r
-        if (self.y + self.vy + self.r < 0):
+        if (self.y + self.vy - self.r < 0):
             canv.move(self.id, 0, 0 + self.r - self.y)
             self.vy = -self.vy
             self.y = 0 + self.r
         canv.move(self.id, self.vx, self.vy)
         self.x += self.vx
         self.y += self.vy
-        self.vy += 0.3
+        self.vy += 0.1
         self.live -=1
         if(self.live == 0):
             canv.delete(self.id)
@@ -91,7 +91,7 @@ class ball():
 
 
 class gun():
-    f2_power = 10
+    f2_power = 2
     f2_on = 0
     an = 1
     id = canv.create_line(20,450,40,450,width=7)
@@ -114,7 +114,7 @@ class gun():
         new_ball.vy = self.f2_power * math.sin(self.an)
         balls += [new_ball]
         self.f2_on = 0
-        self.f2_power = 10
+        self.f2_power = 2
 
     def targetting(self, event=0):
         """Прицеливание. Зависит от положения мыши."""
@@ -125,14 +125,14 @@ class gun():
         else:
             canv.itemconfig(self.id, fill='black')
         canv.coords(self.id, 20, 450,
-                    20 + max(self.f2_power, 20) * math.cos(self.an),
-                    450 + max(self.f2_power, 20) * math.sin(self.an)
+                    20 + max(self.f2_power*5, 20) * math.cos(self.an),
+                    450 + max(self.f2_power*5, 20) * math.sin(self.an)
                     )
 
     def power_up(self):
         if self.f2_on:
-            if self.f2_power < 100:
-                self.f2_power += 1
+            if self.f2_power < 10:
+                self.f2_power += 0.2
             canv.itemconfig(self.id, fill='orange')
         else:
             canv.itemconfig(self.id, fill='black')
@@ -193,7 +193,7 @@ def new_game(event=''):
                 canv.update()
                 time.sleep(1.5)
         canv.update()
-        time.sleep(0.03)
+        time.sleep(0.01)
         g1.targetting()
         g1.power_up()
     canv.itemconfig(screen1, text='')
